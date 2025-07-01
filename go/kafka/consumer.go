@@ -11,7 +11,7 @@ import (
 
 func StartConsumer() {
 	reader := kafka.NewReader(kafka.ReaderConfig{
-		Brokers: []string{"localhost:9092"},
+		Brokers: []string{"kafka:9092"},
 		Topic:   "create-escrow",
 		GroupID: "go-group",
 	})

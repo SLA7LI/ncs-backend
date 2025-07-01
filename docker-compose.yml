@@ -1,14 +1,16 @@
 version: "3.8"
 
 services:
-  # 🐘 Zookeeper (for Kafka)
+  # 🐘 Zookeeper
   zookeeper:
     image: confluentinc/cp-zookeeper:7.6.1
     ports:
-      - "22181:22181"
+      - "2181:2181" # ✅ standard port
     environment:
-      ZOOKEEPER_CLIENT_PORT: 22181
+      ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - app-network
 
   # 🔄 Kafka broker
   kafka:
@@ -17,21 +19,21 @@ services:
       - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:22181
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 # ✅ match ZK port
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
+    networks:
+      - app-network # ✅ add to network
 
-  # 🚀 Go backend (built locally)
+  # 🚀 Go backend
   go-backend:
     build:
       context: ./go
       dockerfile: Dockerfile
     container_name: ncs-go
-    #env_file:
-    # - .env
     ports:
       - "8085:8085"
     depends_on:
@@ -39,7 +41,7 @@ services:
     networks:
       - app-network
 
-  # 🟦 Node.js backend (built locally)
+  # 🟦 Node.js backend
   node-backend:
     build:
       context: ./node
