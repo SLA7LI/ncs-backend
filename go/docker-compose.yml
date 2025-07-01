@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  # 🐘 Zookeeper (Kafka dependency)
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.1
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  # 🔄 Kafka broker
+  kafka:
+    image: confluentinc/cp-kafka:7.6.1
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+  # 🚀 Go backend (from Docker Hub)
+  go-backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: ncs-go
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    ports:
+      - "8085:8085"
+    depends_on:
+      - kafka
+    networks:
+      - app-network
+
+  # 🟦 Node.js backend (update image if needed)
+  node-backend:
+    image: hocinemk03/express-api:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - kafka
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
