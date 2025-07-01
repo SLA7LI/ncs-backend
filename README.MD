@@ -8,11 +8,11 @@ We aim to empower local workers with job opportunities and give clients full con
 
 ## 📚 Table of Contents
 
-- [📖 About](#-about)
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#-tech-stack)
-- [⚙️ Installation](#️-installation)
-- [📡 API Documentation](#-api-documentation)
+- [📖 About](#About)
+- [✨ Features](#Features)
+- [🛠️ Tech Stack](#Tech-Stack)
+- [⚙️ Installation](#Installation)
+- [📡 API Documentation](#API-Documentation)
 
 ## About
 
@@ -21,59 +21,40 @@ SALA7LI is more than a marketplace, it's a  system that transforms how people re
 
 
 ## Features
-### • Worker Browsing & Filtering
-Clients can browse available service providers and apply filters based on:
-- Service category  
-- Geographic location  
-- Availability  
 
-### • Smart Service Request Creation
-Clients can:
-- Describe their service need through a simple form  
-- Or use our AI-powered chatbot assistant to fill out the request conversationally  
+## • Worker Browsing & Filtering  
+Clients can easily browse available workers and apply filters based on service category, location, and availability.
 
-### • Bidding-Based Negotiation (Lobby System)
-Each request becomes a **lobby**, a negotiation space where:
-- Invited workers bid with their prices  
-- Clients stay in control and choose the worker that fits best  
+## • Smart Service Request Creation  
+Clients can describe their problems using a simple form — or use our intelligent assistant (chatbot) to complete the process conversationally.
 
-### • Automatic Worker Invitation
-Once a request is submitted:
-- The system invites **3–10 workers** automatically  
-- Selection is based on urgency, category, and proximity using a recommendation system  
+## • Bidding-Based Negotiation (Lobby System)  
+Each service request becomes a negotiation space ("lobby") where selected workers place bids on the job. The client stays in full control of whom to hire.
 
-### • Urgency-Aware Pricing
-- Urgent service requests can trigger higher initial prices  
-- A slightly higher platform fee may apply to prioritize faster responses  
+## • Automatic Worker Invitation  
+Upon submitting a request, the system automatically invites 3–10 relevant workers based on urgency, category, and proximity using a recommendation system.
 
-### • Service Demand Heatmaps
-- Real-time heatmaps display **high-demand areas** by location and service type  
-- Helps attract more workers to areas with client needs  
+## • Urgency-Aware Pricing  
+Urgent requests can trigger higher starting prices or slightly increased platform fees to prioritize faster service.
 
-### • Mutual Deposit System
-- Both the client and the worker submit a small **deposit** to confirm commitment  
-- After mutual job confirmation, the deposit is released to the worker (minus platform fees)  
+## • Service Demand Heatmaps  
+A visual heatmap highlights high-demand areas by location and service category, helping bring more workers.
 
-### • Worker Verification
-- Workers must upload **official documents** (e.g., commercial registration)  
-- Unlocks full access to job opportunities and increases trust  
+## • Mutual Deposit System  
+Both the client and the worker submit a small deposit to confirm their seriousness. Once the job is mutually confirmed as completed, the deposit is transferred to the worker (minus platform fees).
 
-### • AI-Powered Chatbot Assistant
-- Users are guided through the platform by a built-in chatbot  
-- Supports service request creation, FAQs, and platform actions  
+## • Worker Verification  
+Workers are required to submit official documents (e.g., commercial registration) to unlock full access to job opportunities, enhancing platform trust.
 
-### • Performance & Activity Tracking
-- Worker profiles include detailed analytics:
-  - Number of bids participated in  
-  - Job success rates  
-  - Feedback and handling performance  
+## • AI-Powered Chatbot Assistant  
+A built-in chatbot helps users navigate the platform, fill out forms, ask questions, and take action quickly.
 
-### • Dynamic Worker Resume Building
-- Workers can showcase:
-  - Completed jobs  
-  - Previous client lobbies  
-  - Ratings and history  
-- Builds a powerful digital reputation on the platform  
+## • Performance & Activity Tracking  
+Workers’ profiles include statistics such as number of bids joined, job completion rates, client feedback, and response handling performance.
+
+## • Dynamic Worker Resume Building  
+The system helps workers build strong digital resumes by showcasing past lobbies, completed jobs, ratings, and history with clients.
+
 
 ## Tech Stack
 | Layer       | Technology                        |
