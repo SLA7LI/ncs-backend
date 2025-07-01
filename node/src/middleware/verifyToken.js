@@ -4,7 +4,7 @@ const  config  = require('../config/config');
 const verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    console.log("her")
+    
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       const error = new Error('No token provided');
       error.statusCode = 401;

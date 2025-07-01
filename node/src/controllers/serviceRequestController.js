@@ -171,7 +171,7 @@ class ServiceRequestService {
 
   async leaveServiceRequest(req, res, next) {
     try {
-      const { id } = req.params;
+      const { serviceRequestId } = req.body;
 
       const email = req.user.user;
       const authService = require('../services/authService');
@@ -187,7 +187,7 @@ class ServiceRequestService {
         });
       }
       const workerId = user.id;
-      const result = await serviceRequestService.leaveServiceRequest(id, workerId);
+      const result = await serviceRequestService.leaveServiceRequest(serviceRequestId, workerId);
       return res.status(200).json({
         message: 'Left service request successfully',
         data: result,
@@ -327,6 +327,37 @@ return res.status(200).json({
     catch(error){
       console.error(error); 
       next(error)
+    }
+  }
+
+  async placeBid(req, res, next) {
+    try{
+      const { serviceRequestId, money } = req.body;
+
+      const email = req.user.user;
+      const authService = require('../services/authService');
+      const user = await authService.checkUserExists(email);
+      if (!user) {
+        return res.status(404).json({
+          message: 'User not found, jwt false',
+        });
+      }
+      if (user.role !== 'worker') {
+        return res.status(403).json({
+          message: 'Only workers can place bids on service requests',
+        });
+      }
+
+      const workerId = user.id;
+      const result=await serviceRequestService.placeBid(serviceRequestId, workerId, money);
+      return res.status(200).json({
+        message: 'Bid placed successfully',
+        data: result,
+      });
+    }
+    catch(error) {
+      console.error(error);
+      next(error);
     }
   }
 }
