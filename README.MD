@@ -93,4 +93,64 @@ docker-composer up -d --build
 ```
 
 ## API Documentation
+# API Documentation
+
+This document outlines the main API endpoints for both the Node.js (Express) and Go (Chi) services in this repository.
+
+---
+
+## Node.js Backend API (`/api/v1/`)
+
+### Authentication Routes (`/api/v1/auth`)
+| Method | Endpoint               | Description                        |
+|--------|------------------------|------------------------------------|
+| POST   | /registerasworker      | Register a new worker account      |
+| POST   | /registerasclient      | Register a new client account      |
+| POST   | /login                 | Login as worker or client          |
+| GET    | /getWorkers            | Get all workers                    |
+| GET    | /getprofile            | Get profile of current user        |
+
+---
+
+### Service Requests Routes (`/api/v1/servicerequests`)
+| Method | Endpoint                     | Description                                              | Auth Required |
+|--------|------------------------------|----------------------------------------------------------|--------------|
+| GET    | /getlobbies                  | Get all open lobbies                                     | No           |
+| POST   | /create                      | Create a new service request (client only)               | Yes          |
+| GET    | /worker                      | List service requests assigned to worker                 | Yes          |
+| GET    | /client                      | List service requests made by a client                   | Yes          |
+| GET    | /:id                         | Get details of a specific service request by ID          | Yes          |
+| GET    | /                            | List all service requests                                | Yes          |
+| POST   | /invite                      | Invite a worker to a service request                     | Yes          |
+| POST   | /joinbidding                 | Worker joins a service request bidding                   | Yes          |
+| POST   | /leave                       | Leave a service request                                  | Yes          |
+| POST   | /acceptworker                | Accept a worker to a service request (client only)       | Yes          |
+| POST   | /markasdone                  | Mark a service request as done                           | Yes          |
+| POST   | /placebid                    | Place a bid on a service request                         | Yes          |
+
+---
+
+### Kafka Payment Routes (`/api/v1/kafka`)
+| Method | Endpoint           | Description                                 |
+|--------|--------------------|---------------------------------------------|
+| POST   | /create-escrow     | Create an escrow (asynchronous via Kafka)   |
+| POST   | /pay-worker        | Trigger payment to worker (Kafka)           |
+
+---
+
+## Go Backend API
+
+### Notification Routes (`/notifs`)
+| Method | Endpoint                    | Description                       |
+|--------|-----------------------------|-----------------------------------|
+| POST   | /notifs/createnotif         | Create a new notification         |
+| GET    | /notifs/getunreadusernotif/{id} | Get unread notifications for user |
+| PUT    | /notifs/updatereadable/{id} | Mark user notification as read    |
+
+### Payment Routes (`/payment`)
+| Method | Endpoint                    | Description                                 |
+|--------|-----------------------------|---------------------------------------------|
+| POST   | /payment/payoutoworker/{id} | Trigger payout to worker for an escrow      |
+
+
 
