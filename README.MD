@@ -93,7 +93,7 @@ docker-composer up -d --build
 ```
 
 ## API Documentation
-# API Documentation
+
 
 This document outlines the main API endpoints for both the Node.js (Express) and Go (Chi) services in this repository.
 
