@@ -1,0 +1,28 @@
+# Dependencies (will be reinstalled inside the container)
+node_modules
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+*.log
+
+# Environment variables (do not include secrets)
+.env
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Docker-related
+Dockerfile
+.dockerignore
+
+# IDE / Editor settings
+.vscode
+.idea
+*.swp
+
+# Git
+.git
+.gitignore
