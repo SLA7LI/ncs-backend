@@ -86,10 +86,10 @@ Once a request is submitted:
 
 ## Installation
 ```bash
-git clone https://github.com/SLA7LI/express-api.git
-cd express-api
-npm install
-npm run dev
+git clone https://github.com/SLA7LI/ncs-backend.git
+cd ncs-backend
+docker-composer up -d --build
+
 ```
 
 ## API Documentation
