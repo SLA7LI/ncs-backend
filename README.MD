@@ -21,19 +21,60 @@ SALA7LI is more than a marketplace, it's a  system that transforms how people re
 
 
 ## Features
--Clients can browse workers or filter based on category, location, and availability.
--Clients can also describe their problem through a form to create a bidding lobby. Or by using our smart assisstant to do the same operation.
--Every request becomes a negotiation space (lobby) where invited workers can bid on the price of the work.
--When a form is submitted, the system automatically invites 3–10 recommended workers (based on urgency).
--Urgant requests may have a slightly higher starting price or platform fee.
--Shows areas with high service demand based on category and location using heatmaps.
--Both client and worker send a small deposit to confirm seriousness, and after mutual confirmation that work is done, the deposit is transferred to the worker (minus platform fee).
--Workers must submit official documents like a commercial registration to access jobs.
--Chatbot helps users understand the platform and take actions like filling service request forms.
--Track number of bids joined,client handling, success rate, feedback.
--Our system help workers imrpove theirr resume by howcasing old client lobbies that were created and finished.
+### • Worker Browsing & Filtering
+Clients can browse available service providers and apply filters based on:
+- Service category  
+- Geographic location  
+- Availability  
 
--
+### • Smart Service Request Creation
+Clients can:
+- Describe their service need through a simple form  
+- Or use our AI-powered chatbot assistant to fill out the request conversationally  
+
+### • Bidding-Based Negotiation (Lobby System)
+Each request becomes a **lobby**, a negotiation space where:
+- Invited workers bid with their prices  
+- Clients stay in control and choose the worker that fits best  
+
+### • Automatic Worker Invitation
+Once a request is submitted:
+- The system invites **3–10 workers** automatically  
+- Selection is based on urgency, category, and proximity using a recommendation system  
+
+### • Urgency-Aware Pricing
+- Urgent service requests can trigger higher initial prices  
+- A slightly higher platform fee may apply to prioritize faster responses  
+
+### • Service Demand Heatmaps
+- Real-time heatmaps display **high-demand areas** by location and service type  
+- Helps attract more workers to areas with client needs  
+
+### • Mutual Deposit System
+- Both the client and the worker submit a small **deposit** to confirm commitment  
+- After mutual job confirmation, the deposit is released to the worker (minus platform fees)  
+
+### • Worker Verification
+- Workers must upload **official documents** (e.g., commercial registration)  
+- Unlocks full access to job opportunities and increases trust  
+
+### • AI-Powered Chatbot Assistant
+- Users are guided through the platform by a built-in chatbot  
+- Supports service request creation, FAQs, and platform actions  
+
+### • Performance & Activity Tracking
+- Worker profiles include detailed analytics:
+  - Number of bids participated in  
+  - Job success rates  
+  - Feedback and handling performance  
+
+### • Dynamic Worker Resume Building
+- Workers can showcase:
+  - Completed jobs  
+  - Previous client lobbies  
+  - Ratings and history  
+- Builds a powerful digital reputation on the platform  
+
 ## Tech Stack
 | Layer       | Technology                        |
 |-------------|-----------------------------------|
