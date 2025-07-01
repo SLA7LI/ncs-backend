@@ -13,7 +13,8 @@ func main() {
 	config.Connectdb()
 
 	// Start Kafka consumer in a goroutine
-	go kafka.StartConsumer()
+	go kafka.StartCreateEscrowConsumer()
+	go kafka.StartPayWorkerConsumer()
 
 	// Init producer once
 	//kafka.InitProducer()

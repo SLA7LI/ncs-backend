@@ -1,23 +1,32 @@
+const router = require("express").Router();
+const sendToKafka = require("../../kafka/producer");
+const { waitForResponse } = require("../../kafka/consumer");
+const { v4: uuidv4 } = require("uuid");
 
-const router = require('express').Router();
+router.post("/create-escrow", async (req, res) => {
+  const requestId = uuidv4();
+  const payload = { ...req.body, requestId };
 
-const sendTokafka = require('../../kafka/producer');
-
-
-
-router.post("/create-escrow",async(req,res,next)=>{
-try {
-    const payload = req.body;
-
-    await sendTokafka('create-escrow', payload);
-
-    res.status(200).json({
-      message: 'Escrow creation request sent to Kafka',
-      payload,
-    });
+  try {
+    await sendToKafka("create-escrow", payload);
+    const response = await waitForResponse(requestId);
+    res.json(response);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(504).json({ error: err.message });
   }
-})
+});
 
-module.exports= router;
+router.post("/pay-worker", async (req, res) => {
+  const requestId = uuidv4();
+  const payload = { escrow_id: req.body.escrow_id, requestId };
+
+  try {
+    await sendToKafka("worker-pay-assurance", payload); // ⬅️ send to new topic
+    const response = await waitForResponse(requestId); // ⬅️ reuses same logic
+    res.json(response);
+  } catch (err) {
+    res.status(504).json({ error: err.message });
+  }
+});
+
+module.exports = router;
