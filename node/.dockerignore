@@ -8,7 +8,6 @@ yarn-error.log
 *.log
 
 # Environment variables (do not include secrets)
-.env
 
 # System files
 .DS_Store

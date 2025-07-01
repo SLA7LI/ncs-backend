@@ -10,6 +10,7 @@ RUN npm install
 
 # Copy the rest of the app
 COPY . .
+RUN npx prisma generate
 
 # Install nodemon globally (if not already in your package.json)
 RUN npm install -g nodemon

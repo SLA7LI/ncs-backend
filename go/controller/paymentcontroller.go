@@ -2,47 +2,32 @@ package controller
 
 import (
 	"encoding/json"
-	"ncs-hackathon/config"
-	"ncs-hackathon/model"
+	"ncs-backend/go/config"
+
+	//"ncs-backend/go/kafka"
+	//"ncs-backend/go/kafka"
+	"ncs-backend/go/model"
+
 	"net/http"
 	"time"
 
 	"github.com/go-chi/chi"
 )
 
-func CreateEscrow(w http.ResponseWriter, r *http.Request) {
-	var escrow model.Escrow
-
-
-	err := json.NewDecoder(r.Body).Decode(&escrow); 
-	if err != nil {
-		http.Error(w, "Invalid payload", http.StatusBadRequest)
-		return
+func CreateEscrow(payload model.Escrow) (model.Escrow, error) {
+	escrow := model.Escrow{
+		JobID:     payload.JobID,
+		ClientID:  payload.ClientID,
+		WorkerID:  payload.WorkerID,
+		Amount:    payload.Amount,
+		CreatedAt: time.Now(),
 	}
-	escrow.CreatedAt = time.Now()
+
 	result := config.DB.Create(&escrow)
 	if result.Error != nil {
-		http.Error(w, "Failed to create escrow", http.StatusInternalServerError)
-		return
+		return escrow, result.Error
 	}
-
-	clientTx := model.Transaction{
-	UserID:    escrow.ClientID,
-	EscrowID:  escrow.ID,
-	Type:      "out",
-	Amount:    escrow.Amount	,
-	Status:    "success",
-	CreatedAt: time.Now(),
-	}
- 
-	result1 := config.DB.Create(&clientTx)
-	if result1.Error != nil {
-		http.Error(w, "Failed to create client transaction", http.StatusInternalServerError)	
-	}
-
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(escrow)
-
+	return escrow, nil
 }
 
 func WorkerPayAssurance(w http.ResponseWriter, r *http.Request) {

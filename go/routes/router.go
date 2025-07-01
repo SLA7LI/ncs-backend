@@ -1,7 +1,8 @@
 package routes
 
 import (
-	"ncs-hackathon/controller"
+	//"ncs-hackathon/controller"
+	"ncs-backend/go/controller"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -21,7 +22,7 @@ func Router() *chi.Mux{
 	})
 
 	r.Route("/payment", func(r chi.Router) {
-		r.Post("/createescrow", controller.CreateEscrow)
+		//r.Post("/createescrow", controller.CreateEscrow)
 		r.Post("/workerpayassurance/{id}", controller.WorkerPayAssurance)
 		r.Post("/payoutoworker/{id}", controller.PayouToWorker)
 	})

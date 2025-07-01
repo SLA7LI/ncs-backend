@@ -2,25 +2,32 @@ package main
 
 import (
 	"log"
-	"ncs-hackathon/config"
-	"ncs-hackathon/routes"
+	"ncs-backend/go/config"
+	"ncs-backend/go/kafka"
+	"ncs-backend/go/routes"
 	"net/http"
 )
 
 func main() {
+	// Connect to DB
 	config.Connectdb()
 
-	myrouter := routes.Router()
+	// Start Kafka consumer in a goroutine
+	go kafka.StartConsumer()
 
+	// Init producer once
+	//kafka.InitProducer()
+
+	// Set up routes and HTTP server
+	myrouter := routes.Router()
 	srv := &http.Server{
 		Addr:    "0.0.0.0:8085",
 		Handler: myrouter,
 	}
 
+	log.Println("🚀 HTTP server starting on :8085")
 	err := srv.ListenAndServe()
 	if err != nil {
-		log.Fatalf("Error starting server: %v", err)
+		log.Fatalf("❌ Error starting server: %v", err)
 	}
-
-	log.Println("Server started on :8085")
 }

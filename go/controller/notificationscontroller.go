@@ -2,8 +2,9 @@ package controller
 
 import (
 	"encoding/json"
-	"ncs-hackathon/config"
-	"ncs-hackathon/model"
+	"ncs-backend/go/config"
+	"ncs-backend/go/model"
+
 	"net/http"
 	"time"
 
