@@ -95,3 +95,38 @@ func HandlePayouToWorker(data []byte) {
 	})
 }
 
+type WorkerPayoutPayload struct {
+	EscrowID  uint   `json:"escrow_id"`
+	RequestID string `json:"requestId"`
+}
+
+func HandlePayoutToWorker(data []byte) {
+	var payload WorkerPayoutPayload
+
+	if err := json.Unmarshal(data, &payload); err != nil {
+		log.Println("❌ Unmarshal error:", err)
+		SendKafkaMessage("paypayout-response", map[string]any{
+			"success":   false,
+			"error":     "Invalid payload",
+			"requestId": "",
+		})
+		return
+	}
+
+	escrow, err := controller.PayouToWorker(payload.EscrowID)
+	if err != nil {
+		SendKafkaMessage("paypayout-response", map[string]any{
+			"success":   false,
+			"error":     err.Error(),
+			"requestId": payload.RequestID,
+		})
+		return
+	}
+
+	SendKafkaMessage("paypayout-response", map[string]any{
+		"success":   true,
+		"escrow":    escrow,
+		"requestId": payload.RequestID,
+	})
+}
+

@@ -15,7 +15,7 @@ func main() {
 	// Start Kafka consumer in a goroutine
 	go kafka.StartCreateEscrowConsumer()
 	go kafka.StartPayWorkerConsumer()
-
+	go kafka.StartFullPayoutConsumer()
 	// Init producer once
 	//kafka.InitProducer()
 

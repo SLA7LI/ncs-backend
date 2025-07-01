@@ -29,4 +29,32 @@ router.post("/pay-worker", async (req, res) => {
   }
 });
 
+router.post("/payout", async (req, res) => {
+  const { escrow_id } = req.body;
+
+  if (!escrow_id) {
+    return res.status(400).json({ error: "escrow_id is required" });
+  }
+
+  const requestId = uuidv4();
+
+  try {
+    await sendToKafka("worker-full-payout", {
+      escrow_id,
+      requestId,
+    });
+
+    const response = await waitForResponse(requestId, 10000); // 10s timeout
+    res.json({
+      message: "Worker payout triggered successfully",
+      response,
+    });
+  } catch (err) {
+    res.status(504).json({
+      error: "Timeout or failure in Kafka payout response",
+      details: err.message,
+    });
+  }
+});
+
 module.exports = router;

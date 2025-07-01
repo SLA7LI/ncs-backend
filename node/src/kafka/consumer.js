@@ -19,6 +19,7 @@ async function startConsumer() {
   // ⬇️ Subscribe to both response topics
   await consumer.subscribe({ topic: "escrow-response", fromBeginning: false });
   await consumer.subscribe({ topic: "payworker-response", fromBeginning: false });
+  await consumer.subscribe({ topic: "paypayout-response", fromBeginning: false });
 
   await consumer.run({
     eachMessage: async ({ message }) => {

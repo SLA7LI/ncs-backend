@@ -24,7 +24,7 @@ func Router() *chi.Mux{
 	r.Route("/payment", func(r chi.Router) {
 		//r.Post("/createescrow", controller.CreateEscrow)
 		//r.Post("/workerpayassurance/{id}", controller.WorkerPayAssurance)
-		r.Post("/payoutoworker/{id}", controller.PayouToWorker)
+		//r.Post("/payoutoworker/{id}", controller.PayouToWorker)
 	})
 
 	return r
