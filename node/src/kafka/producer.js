@@ -1,8 +1,10 @@
-const { Kafka } = require('kafkajs');
+const { Kafka } = require("kafkajs");
 
 const kafka = new Kafka({
-  clientId: 'node-backend',
-  brokers: ['kafka:9092'],
+
+  clientId: "node-backend",
+  brokers: ["kafka:9092"],
+
 });
 
 const producer = kafka.producer();

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"ncs-backend/go/config"
 
 	//"ncs-backend/go/kafka"
@@ -25,41 +26,58 @@ func CreateEscrow(payload model.Escrow) (model.Escrow, error) {
 
 	result := config.DB.Create(&escrow)
 	if result.Error != nil {
+		fmt.Println("Error creating escrow:", result.Error)
+		return escrow, result.Error
+	}
+
+	clientTx := model.Transaction{
+		UserID:    escrow.ClientID,
+		EscrowID:  escrow.ID,
+		Type:      "out",
+		Amount:    escrow.Amount,
+		Status:    "success",
+		CreatedAt: time.Now(),
+	}
+
+	result1 := config.DB.Create(&clientTx)
+	if result1.Error != nil {
 		return escrow, result.Error
 	}
 	return escrow, nil
 }
 
-func WorkerPayAssurance(w http.ResponseWriter, r *http.Request) {
+func WorkerPayAssurance(escrowID uint) (model.Escrow, error) {
+	var escrow model.Escrow
 
-	var Escrow model.Escrow
-	escrowId := chi.URLParam(r, "id")
-
-	if escrowId == "" {
-		http.Error(w, "Escrow ID is required", http.StatusBadRequest)
-		return
+	// 1. Get the escrow from DB and check for errors
+	result := config.DB.First(&escrow, escrowID)
+	if result.Error != nil {
+		return escrow, result.Error // Could be "record not found"
 	}
 
-	config.DB.First(&Escrow, escrowId)
-	
+	// 2. Calculate 10% assurance
+	assurance := (escrow.Amount * 10) / 100
+
+	// 3. Create the worker transaction
 	workerTx := model.Transaction{
-	UserID:    Escrow.WorkerID,
-	EscrowID:  Escrow.ID,
-	Type:      "out",
-	Amount:    (Escrow.Amount * 10)/100,
-	Status:    "success",
-	CreatedAt: time.Now(),
+		UserID:    escrow.WorkerID,
+		EscrowID:  escrow.ID,
+		Type:      "out",
+		Amount:    assurance,
+		Status:    "success",
+		CreatedAt: time.Now(),
 	}
 
-	result1 := config.DB.Create(&workerTx)
-	if result1.Error != nil {
-		http.Error(w, "Failed to create worker transaction", http.StatusInternalServerError)	
+	// 4. Save transaction and check for errors
+	result = config.DB.Create(&workerTx)
+	if result.Error != nil {
+		return escrow, result.Error
 	}
 
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(Escrow)
-
+	// 5. Return the escrow info if everything succeeded
+	return escrow, nil
 }
+
 
 func PayouToWorker(w http.ResponseWriter, r *http.Request) {
 
