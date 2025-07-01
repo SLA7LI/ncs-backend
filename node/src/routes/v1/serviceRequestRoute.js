@@ -49,7 +49,7 @@ router.post("/joinbidding",
   serviceRequestController.joinServiceRequestBidding)
 
 router.post(
-  "/leave/:id",
+  "/leave",
   verifyToken,
   serviceRequestController.leaveServiceRequest
 );
@@ -69,6 +69,9 @@ router.post("/markasdone",
   verifyToken,
   serviceRequestController.markAsDone)
 
+
+  router.post("/placebid",verifyToken,
+  serviceRequestController.placeBid)
 
 
 
